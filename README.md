@@ -2,25 +2,23 @@
 
 This repository contains the code to reproduce the KDD submissions for the paper titled “Learning Generalized and Flexible Trajectory Models from Omni-Semantic Supervision”
 
-Requirements
 
-The code is implemented in Python and uses the PyTorch framework. To ensure compatibility, please install the following dependencies:
+
+
 
 Files in the Repository
 
-unitraj.py: Defines the Unitraj model architecture, and other core functionalities.
-dataset.py: Defines the dataset class, including resampling, masking strategies and corrsponding functions.
-main.py: The primary script for training the Unitraj model.
-config.py: Contains the configuration parameters for the model.
-you can run the code by running the following command:
+main.py: The main script to train the model
+utils files contains the following files:
+- dataset.py: Defines the dataset class with torch, including, trajectory, topology, road and regions. 
+- omni_semantic.py: Defines the OmniTraj model with the modality encoders.
+- traj_encoder.py: Defines the trajectory encoder.
+- topol_encoder.py: Defines the topology encoder.
+- road_encoder.py: Defines the road encoder.
+- region_encoder.py: Defines the region encoder.
 
 python main.py
-Data
 
-We provide a sample dataset in the data folder. The dataset is a subset dataset with 1000 trajectories. Each trajectory contains trajectory points, and timestamps. The dataset is stored in a .pkl.
+data directory contains the dataset used in the paper. The dataset is a subset dataset with 1000 trajectories.
 
-We also provide data load notebook to load the data and visualize the trajectories. Saved as load_see_data.ipynb
 
-Model
-
-We provide the trained model in the folder. The model is saved as a .pt file.
