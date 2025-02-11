@@ -9,6 +9,13 @@ This repository contains the code to reproduce the KDD submissions for the paper
 Files in the Repository
 
 main.py: The main script to train the model
+
+You can run the code by running the following command:
+
+```bash
+python main.py
+```
+
 utils files contains the following files:
 - dataset.py: Defines the dataset class with torch, including, trajectory, topology, road and regions. 
 - omni_semantic.py: Defines the OmniTraj model with the modality encoders.
@@ -16,6 +23,7 @@ utils files contains the following files:
 - topol_encoder.py: Defines the topology encoder.
 - road_encoder.py: Defines the road encoder.
 - region_encoder.py: Defines the region encoder.
+
 
 
 data directory contains the dataset used in the paper. The dataset is a subset dataset with 1000 trajectories.
