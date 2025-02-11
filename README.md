@@ -10,11 +10,7 @@ Files in the Repository
 
 main.py: The main script to train the model
 
-You can run the code by running the following command:
 
-```bash
-python main.py
-```
 
 utils files contains the following files:
 - dataset.py: Defines the dataset class with torch, including, trajectory, topology, road and regions. 
