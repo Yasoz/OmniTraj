@@ -29,6 +29,7 @@ class TrajectoryDataset(Dataset):
         self.max_region_length = max_region_length
         self.traj_len = traj_len
         # Road segment
+        # should be awarded some roads are index from 0
         self.PAD_IDX = 0
         self.BOS_IDX = num_roads - 1
         self.EOS_IDX = num_roads - 2

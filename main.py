@@ -14,10 +14,6 @@ from utils.utils import AvgMeter, get_lr
 from utils.config import encoder_configs,dataset_configs
 from torch.utils.data import Dataset, DataLoader
 
-os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

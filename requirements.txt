@@ -1,0 +1,15 @@
+# Basic Dependencies
+numpy>=1.21.0
+pandas>=1.3.0
+torch>=1.8.0
+tqdm>=4.62.0
+
+# Deep Learning & Model
+timm>=0.6.0  # for vision transformer implementation
+einops>=0.4.0  # for tensor operations
+transformers>=4.20.0
+# Data Processing
+
+# Visualization (optional)
+matplotlib>=3.4.0
+seaborn>=0.11.0
