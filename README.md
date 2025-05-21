@@ -13,49 +13,34 @@ OmniTraj is a novel multi-modal trajectory representation learning framework tha
 - Flexible model architecture with modality-specific encoders
 - Contrastive learning framework for cross-modal alignment
 
-## Installation
 
-### Requirements
-- Python 3.8+
-- PyTorch 1.8+
-- CUDA 11.0+ (for GPU support)
-
-### Setup
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/OmniTraj.git
-cd OmniTraj
-```
-
-2. Create a virtual environment (recommended):
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
 
 ## Project Structure
 ```
-OmniTraj/
-├── main.py                 # Main training script
-├── requirements.txt        # Project dependencies
-├── data/                   # Dataset directory
-│   ├── trajectory.pkl  # Sample of Chengdu dataset
-│   ├── 
-└── utils/                  # Utility modules
-    ├── dataset.py         # Dataset class implementation
-    ├── omni_semantic.py   # OmniTraj model definition
-    ├── traj_encoder.py    # Trajectory encoder
-    ├── topol_encoder.py   # Topology encoder
-    ├── road_encoder.py    # Road network encoder
-    ├── region_encoder.py  # Region encoder
-    ├── config.py          # Configuration settings
-    └── utils.py           # Utility functions
+.
+├── data/                     # Directory for storing datasets
+│   └── trajectory.pkl        # Example dataset file (replace with your actual data)
+├── utils/                    # Utility scripts and model components
+│   ├── omni_semantic.py      # Defines the core OmniModel
+│   ├── trajectory_encoder.py # Implements the TrajectoryEncoder
+│   ├── topology_encoder.py   # Implements the TopologyEncoder
+│   ├── road_encoder.py       # Implements the RoadEncoder
+│   ├── region_encoder.py     # Implements the RegionEncoder
+│   ├── dataset.py            # Handles data loading and preprocessing (TrajectoryDataset)
+│   ├── config.py             # Contains model and dataset configurations
+│   └── utils.py              # General utility functions (e.g., AvgMeter)
+├── main.py                   # Main script for training and evaluation
+├── requirements.txt          # Python dependencies for the project
+└── README.md                 # This file
 ```
+## Prerequisites and Installation
+
+To set up and run this project, you'll need the following:
+
+*   Python 3 (tested with Python 3.8 and newer)
+*   PyTorch (ensure it's compatible with your CUDA version if using GPU)
+
+We recommend using a virtual environment to manage dependencies:
 
 ## Model Architecture
 OmniTraj consists of four modality-specific encoders:
@@ -78,26 +63,56 @@ OmniTraj consists of four modality-specific encoders:
 
 The model uses a contrastive learning framework to align different modalities and learn a unified representation.
 
-## Usage
+## Usage Instructions
 
-### Training
-To train the model on the Chengdu dataset:
+### 1. Data Preparation
+
+1. **Dataset**: This project expects trajectory data in a `pkl` file format, as exemplified by `data/trajectory.pkl`. Each entry in the pickle file should contain the necessary trajectory information, including sequences for `trajectory`, `topology`, `roads`, and `cell_sequence`.
+
+2. **Configuration**:
+
+   1. Key training parameters can be modified in `utils/config.py`:
+
+      - Model architecture parameters
+      - Training hyperparameters
+      - Dataset configurations
+      - Data augmentation settings
+
+   2. Place your dataset (e.g., `your_dataset_train.pkl`, `your_dataset_val.pkl`) into a suitable directory, for example, `../Trajdata/` relative to the project root, or update the paths directly in `main.py`.
+
+   3. In `main.py`, within the `if __name__ == "__main__":` block, modify the `dataset_name` variable (e.g., 'xian', 'chengdu') to match your dataset key in `utils/config.py`.
+
+   4. The paths for training and testing files are constructed based on this `dataset_name`:
+
+      ```python
+      dataset_name ='xian' # Or 'chengdu', or your custom dataset key
+      path = {
+          "train_file_path": f'../Trajdata/{dataset_name}_train.pkl',
+          "test_file_path": f'../Trajdata/{dataset_name}_val.pkl'
+      }
+      config = dataset_configs[dataset_name]
+      config.update(path)
+      ```
+
+   5. Ensure that `dataset_configs[dataset_name]` in `utils/config.py` correctly defines parameters for your data.
+
+
+### 2. Running Training
+
+Once the data is prepared and paths are configured:
+
 ```bash
 python main.py
 ```
 
+The script will:
 
-### Configuration
-Key training parameters can be modified in `utils/config.py`:
-- Model architecture parameters
-- Training hyperparameters
-- Dataset configurations
-- Data augmentation settings
-
-### Model Checkpoints
-- Best models are saved in the `models/` directory
-- Checkpoints are saved every 20 epochs
-- Best model is saved based on validation loss
+*   Set up experiment directories under `OmniModel/<dataset_name>-<timestamp>/`.
+*   Save a copy of the `utils` scripts and `main.py` into `OmniModel/<dataset_name>-<timestamp>/Files/` for reproducibility.
+*   Train the `OmniModel` using the specified training data.
+*   Perform validation on the test data after each epoch.
+*   Save the best performing model (based on validation loss) to `OmniModel/<dataset_name>-<timestamp>/models/best_OmniModel.pt`.
+*   Periodically save model checkpoints (e.g., every 20 epochs) to the same `models` directory.
 
 
 
